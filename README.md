@@ -21,6 +21,6 @@ Qt的QSS不支持**box-shadow**，因此无法完成像https://neumorphism.io �
 - **strength**：阴影的强度
 - **angle**：阴影的旋转角度
 
-![](outset.png)
+![](./outset.png)
 
-![](inset.png)
+![](./inset.png)
