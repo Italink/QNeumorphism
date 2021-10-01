@@ -25,7 +25,9 @@ Widget::Widget(QWidget *parent)
     palette.setColor(QPalette::Window,color);
     this->setPalette(palette);
 
-    QNeumorphism*  neum=new QNeumorphism();
+    QWidget *widget=new QWidget;
+    QNeumorphism* neum=new QNeumorphism();
+    widget->setGraphicsEffect(neum);
 
     btTest->setGraphicsEffect(neum);
     btTest->setFixedSize(100,100);
@@ -54,8 +56,9 @@ Widget::Widget(QWidget *parent)
 
     connect(btTest,&QPushButton::clicked,this,[btTest,this](){
         QColorDialog colorDialog;
+        colorDialog.setGeometry(200,200,300,280);
         colorDialog.setCurrentColor(btTest->palette().color(QPalette::Button));
-        connect(&colorDialog,&QColorDialog::currentColorChanged,[&](const QColor &color){
+        connect(&colorDialog,&QColorDialog::currentColorChanged,[btTest,this](const QColor &color){
             QPalette palette;
             palette.setColor(QPalette::Button,color);
             btTest->setPalette(palette);
@@ -72,16 +75,18 @@ Widget::Widget(QWidget *parent)
     connect(blurRadius,&QNumberSlider::valueChanged,this,[neum](double var){
         neum->setBlurRadius(var);
     });
+
     connect(distance,&QNumberSlider::valueChanged,this,[neum](double var){
         neum->setDistance(var);
     });
+
     connect(strength,&QNumberSlider::valueChanged,this,[neum](double var){
         neum->setStrength(var);
     });
+
     connect(angle,&QNumberSlider::valueChanged,this,[neum](double var){
         neum->setAngle(var);
     });
-
 }
 
 Widget::~Widget()

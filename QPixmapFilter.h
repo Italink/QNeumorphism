@@ -1,12 +1,8 @@
-#ifndef FITLER_H
-#define FITLER_H
-#include <memory>
-#include <qglobal.h>
-#include <QDebug>
-#include "qpainter.h"
-#include "qpixmap.h"
-#include "qvarlengtharray.h"
-#include "qmath.h"
+#ifndef QPIXMAP_FILTER_H
+#define QPIXMAP_FILTER_H
+
+#include <QPainter>
+#include <QtMath>
 
 static const int tileSize = 32;
 

@@ -1,5 +1,5 @@
-#ifndef QNumberBox_H
-#define QNumberBox_H
+#ifndef QNUMBER_BOX_H
+#define QNUMBER_BOX_H
 
 #include <QWidget>
 

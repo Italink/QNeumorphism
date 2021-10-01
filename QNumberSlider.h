@@ -1,5 +1,5 @@
-#ifndef QNumberSlider_H
-#define QNumberSlider_H
+#ifndef QNUMBER_SLIDER_H
+#define QNUMBER_SLIDER_H
 
 #include <QWidget>
 class QLineEdit;
