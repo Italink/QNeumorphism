@@ -1,7 +1,7 @@
 # QNeumorphism
 Qt的QSS不支持**box-shadow**，因此无法完成像https://neumorphism.io 这样的效果
 
-笔者通过QGraphicsEffect实现了它的替代方案，可直接用于QWidget，就像下面这样：
+笔者通过QGraphicsEffect实现了它的替代方案，可直接用于QWidget，就像下面这样： 
 
 ```
     QWidget *widget=new QWidget;
