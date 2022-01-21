@@ -15,7 +15,7 @@ QNumberSlider::QNumberSlider(double number, double min, double max, QString labe
     , sliderBox_(new QNumberBoxSlider)
 {
     QHBoxLayout *h=new QHBoxLayout(this);
-    h->setMargin(0);
+    h->setContentsMargins(0,0,0,0);
     if(!label.isEmpty()){
         h->addWidget(new QLabel(label));
     }

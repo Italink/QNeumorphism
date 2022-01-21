@@ -26,7 +26,7 @@ class QNumberBoxSlider : public QWidget{
 public:
     QNumberBoxSlider();
 protected:
-    virtual void enterEvent(QEvent *) override;
+    virtual void enterEvent(QEnterEvent *) override;
     virtual void leaveEvent(QEvent *) override;
     virtual void paintEvent(QPaintEvent *) override;
     virtual void mousePressEvent(QMouseEvent *event) override;

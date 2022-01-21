@@ -14,7 +14,7 @@ QNumberBox::QNumberBox(double def,int precision,QWidget *parent)
     QHBoxLayout *h=new QHBoxLayout(this);
     h->addWidget(numberEdit_);
     h->addWidget(slider_);
-    h->setMargin(0);
+    h->setContentsMargins(0,0,0,0);
     numberEdit_->setValidator(new QDoubleValidator);
     numberEdit_->setAlignment(Qt::AlignCenter);
     numberEdit_->setFixedSize(50,20);
@@ -43,7 +43,7 @@ QNumberBoxSlider::QNumberBoxSlider(){
     enter=false;
 }
 
-void QNumberBoxSlider::enterEvent(QEvent *){
+void QNumberBoxSlider::enterEvent(QEnterEvent *){
     setCursor(Qt::SplitHCursor);
     enter=true;
     update();
