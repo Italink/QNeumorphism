@@ -10,19 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     QNeumorphism.cpp \
-    QNumberBox.cpp \
-    QNumberSlider.cpp \
-    main.cpp \
-    Widget.cpp
+    TestWidget.cpp \
+    main.cpp
+
 
 HEADERS += \
     QNeumorphism.h \
-    QNumberBox.h \
-    QNumberSlider.h \
-    QPixmapFilter.h \
-    Widget.h
-
-# Default rules for deployment.
+    TestWidget.h
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
