@@ -24,6 +24,7 @@ public:
     bool inset() const;
     void setInset(bool inset);
 
+
 protected:
     QRectF boundingRectFor(const QRectF& rect) const override;
     void draw(QPainter* painter) override;

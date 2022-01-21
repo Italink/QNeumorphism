@@ -8,11 +8,11 @@ QNeumorphism::QNeumorphism(qreal blurRadius, qreal distance, qreal strength, qre
     , angle_(angle)
     , inset_(inset)
 {
-
 }
 
 QNeumorphism::~QNeumorphism()
 {
+
 }
 
 qreal QNeumorphism::strength() const
@@ -90,93 +90,92 @@ void QNeumorphism::draw(QPainter* painter)
     qreal radian = angle_ / 180 * M_PI;
     offset.setX(distance_ * qCos(radian));
     offset.setY(distance_ * qSin(radian));
-
     QT_BEGIN_NAMESPACE
         extern Q_WIDGETS_EXPORT void qt_blurImage(QPainter * p, QImage & blurImage, qreal radius, bool quality, bool alphaOnly, int transposed = 0);
     QT_END_NAMESPACE
 
-    if (inset_) {
-        QPainter shadow1Painter(&shadow1);
-        shadow1Painter.drawPixmap(0, 0, px);
-        shadow1Painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-        shadow1Painter.fillRect(shadow1.rect(), QColor::fromRgbF(0.0, 0.0, 0.0, strength_));
-        shadow1Painter.end();
+        if (inset_) {
+            QPainter shadow1Painter(&shadow1);
+            shadow1Painter.drawPixmap(0, 0, px);
+            shadow1Painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+            shadow1Painter.fillRect(shadow1.rect(), QColor::fromRgbF(0.0, 0.0, 0.0, strength_));
+            shadow1Painter.end();
 
-        QPainter shadow2Painter(&shadow2);
-        shadow2Painter.drawPixmap(0, 0, px);
-        shadow2Painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-        shadow2Painter.fillRect(shadow1.rect(), QColor::fromRgbF(1.0, 1.0, 1.0, strength_));
-        shadow2Painter.end();
+            QPainter shadow2Painter(&shadow2);
+            shadow2Painter.drawPixmap(0, 0, px);
+            shadow2Painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+            shadow2Painter.fillRect(shadow1.rect(), QColor::fromRgbF(1.0, 1.0, 1.0, strength_));
+            shadow2Painter.end();
 
-        QPainter shadowPainter(&shadow1);
-        shadowPainter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
-        shadowPainter.drawImage(offset, shadow2);
-        shadowPainter.setCompositionMode(QPainter::CompositionMode_Clear);
-        offset.setX(qAbs(offset.x()));
-        offset.setY(qAbs(offset.y()));
+            QPainter shadowPainter(&shadow1);
+            shadowPainter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
+            shadowPainter.drawImage(offset, shadow2);
+            shadowPainter.setCompositionMode(QPainter::CompositionMode_Clear);
+            offset.setX(qAbs(offset.x()));
+            offset.setY(qAbs(offset.y()));
 
-        QRect rect;
-        rect.setWidth(shadow1.width() / px.devicePixelRatioF() / px.devicePixelRatioF());
-        rect.setHeight(shadow1.height() / px.devicePixelRatioF() / px.devicePixelRatioF());
-        rect.adjust(offset.x(), offset.y(), -offset.x(), -offset.y());
-        shadowPainter.fillRect(rect, Qt::transparent);
-        shadowPainter.end();
+            QRect rect;
+            rect.setWidth(shadow1.width() / px.devicePixelRatioF() / px.devicePixelRatioF());
+            rect.setHeight(shadow1.height() / px.devicePixelRatioF() / px.devicePixelRatioF());
+            rect.adjust(offset.x(), offset.y(), -offset.x(), -offset.y());
+            shadowPainter.fillRect(rect, Qt::transparent);
+            shadowPainter.end();
 
-        QImage blurred(px.size(), QImage::Format_ARGB32);
-        blurred.setDevicePixelRatio(px.devicePixelRatioF());
-        blurred.fill(0);
-        QPainter blurPainter(&blurred);
-        qt_blurImage(&blurPainter, shadow1, blurRadius_, false, false);
-        blurPainter.end();
+            QImage blurred(px.size(), QImage::Format_ARGB32);
+            blurred.setDevicePixelRatio(px.devicePixelRatioF());
+            blurred.fill(0);
+            QPainter blurPainter(&blurred);
+            qt_blurImage(&blurPainter, shadow1, blurRadius_, false, false);
+            blurPainter.end();
 
-        QImage image = px.toImage();
-        QPainter lastPainter(&image);
-        lastPainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-        lastPainter.drawImage(blurred.rect(), blurred);
-        lastPainter.end();
+            QImage image = px.toImage();
+            QPainter lastPainter(&image);
+            lastPainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+            lastPainter.drawImage(blurred.rect(), blurred);
+            lastPainter.end();
 
-        painter->drawImage(pos, image);
-    }
-    else {
-        QPainter shadowPainter(&shadow1);
-        shadowPainter.setCompositionMode(QPainter::CompositionMode_Source);
-        shadowPainter.drawPixmap(0, 0, px);
-        shadowPainter.end();
+            painter->drawImage(pos, image);
+        }
+        else {
+            QPainter shadowPainter(&shadow1);
+            shadowPainter.setCompositionMode(QPainter::CompositionMode_Source);
+            shadowPainter.drawPixmap(0, 0, px);
+            shadowPainter.end();
 
-        QImage blurred(shadow1.size(), QImage::Format_ARGB32_Premultiplied);
-        blurred.setDevicePixelRatio(px.devicePixelRatioF());
-        blurred.fill(0);
+            QImage blurred(shadow1.size(), QImage::Format_ARGB32_Premultiplied);
+            blurred.setDevicePixelRatio(px.devicePixelRatioF());
+            blurred.fill(0);
 
-        QPainter blurPainter(&blurred);
-        qt_blurImage(&blurPainter, shadow1, blurRadius_, false, true);
-        blurPainter.end();
+            QPainter blurPainter(&blurred);
+            qt_blurImage(&blurPainter, shadow1, blurRadius_, false, true);
+            blurPainter.end();
 
-        shadow1 = std::move(blurred);
+            shadow1 = std::move(blurred);
 
-        // blacken the image...
-        shadowPainter.begin(&shadow1);
-        shadowPainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-        shadowPainter.fillRect(shadow1.rect(), QColor::fromRgbF(0.0, 0.0, 0.0, strength_));
-        shadowPainter.end();
-        shadow2 = shadow1;
+            // blacken the image...
+            shadowPainter.begin(&shadow1);
+            shadowPainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+            shadowPainter.fillRect(shadow1.rect(), QColor::fromRgbF(0.0, 0.0, 0.0, strength_));
+            shadowPainter.end();
+            shadow2 = shadow1;
 
-        // blacken the image...
-        shadowPainter.begin(&shadow2);
-        shadowPainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-        shadowPainter.fillRect(shadow2.rect(), QColor::fromRgbF(1.0, 1.0, 1.0, strength_));
-        shadowPainter.end();
+            // blacken the image...
+            shadowPainter.begin(&shadow2);
+            shadowPainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+            shadowPainter.fillRect(shadow2.rect(), QColor::fromRgbF(1.0, 1.0, 1.0, strength_));
+            shadowPainter.end();
 
-        // draw the blurred drop shadow...
-        painter->drawImage(pos + offset, shadow1);
-        painter->drawImage(pos - offset, shadow2);
+            // draw the blurred drop shadow...
+            painter->drawImage(pos + offset, shadow1);
+            painter->drawImage(pos - offset, shadow2);
 
-        // Draw the actual pixmap...
-        painter->drawPixmap(pos, px);
-    }
+            // Draw the actual pixmap...
+            painter->drawPixmap(pos, px);
+        }
     painter->setWorldTransform(restoreTransform);
 }
 
-bool QNeumorphism::isInset() const
+bool QNeumorphism::inset() const
 {
     return inset_;
 }
@@ -186,3 +185,4 @@ void QNeumorphism::setInset(bool inset)
     inset_ = inset;
     update();
 }
+
